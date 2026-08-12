@@ -1,4 +1,4 @@
-set(ZXLIBSTDCXX_BASE "/home/assembler-0/workspace/zxlibstdcxx")
+set(ZXLIBSTDCXX_BASE "${CMAKE_CURRENT_LIST_DIR}")
 
 set(ZXLIBSTDCXX_INCLUDE
         "${ZXLIBSTDCXX_BASE}/include/c++/17.0.0"
