@@ -5,7 +5,7 @@ use warnings;
 
 use Cwd qw(abs_path getcwd);
 use File::Copy qw(copy);
-use File::Path qw(make_path);
+use File::Path qw(make_path remove_tree);
 use File::Spec;
 
 sub usage {
@@ -81,18 +81,6 @@ sub patch_stdcxx {
 
     my $contents = read_file($path);
 
-    # Only transform plain, top-level include lines of the form:
-    #
-    #   #include <foo>
-    #
-    # into:
-    #
-    #   #if __has_include(<foo>)
-    #     #include <foo>
-    #   #endif
-    #
-    # Already-patched blocks are left alone.
-
     my @lines = split(/(?<=\n)/, $contents);
     my @out;
 
@@ -102,7 +90,6 @@ sub patch_stdcxx {
         if ($line =~ /^#include\s+<([^>]+)>\s*$/) {
             my $header = $1;
 
-            # Don't re-wrap an include that is already guarded.
             if (@out >= 1 && $out[-1] =~ /^#if\s+__has_include\(<\Q$header\E>\)\s*$/) {
                 push @out, $line;
                 next;
@@ -121,10 +108,6 @@ sub patch_stdcxx {
 
     write_file($path, $patched);
 }
-
-# ------------------------------------------------------------
-# Parse CLI
-# ------------------------------------------------------------
 
 my %args;
 
@@ -147,7 +130,6 @@ die "error: cannot resolve stldir '$args{stldir}'\n"
 my $version = $args{version};
 my $target  = $args{target};
 
-# Project root = directory containing this script.
 my $base = abs_path(getcwd());
 
 die "error: cannot determine project root\n"
@@ -155,9 +137,20 @@ die "error: cannot determine project root\n"
 
 require_dir($stldir);
 
-# ------------------------------------------------------------
-# Destination paths
-# ------------------------------------------------------------
+my $std_generator = File::Spec->catdir(
+    $base,
+    'include',
+    'c++',
+    $version,
+    'generator',
+);
+
+if (-f $std_generator) {
+    unlink($std_generator)
+        or die "error: failed to remove file '$std_generator': $!\n";
+} else {
+    die "error: $std_generator is not a file\n"
+}
 
 my $include_root = File::Spec->catdir(
     $base,
@@ -176,18 +169,10 @@ my $bits_root = File::Spec->catdir(
     'bits',
 );
 
-# ------------------------------------------------------------
-# 1. Copy patchset/std.cc
-# ------------------------------------------------------------
-
 install_file(
     File::Spec->catfile($base, 'patchset', 'std.cc'),
     File::Spec->catfile($bits_root, 'std.cc'),
 );
-
-# ------------------------------------------------------------
-# 2. Patch target bits/stdc++.h
-# ------------------------------------------------------------
 
 my $stdcxx_h = File::Spec->catfile(
     $target_root,
@@ -229,10 +214,6 @@ for my $file (qw(
     );
 }
 
-# ------------------------------------------------------------
-# 4. Install libstdc++ wrapper/internal headers
-# ------------------------------------------------------------
-
 for my $file (qw(
     funcwrap.h
     funcref_impl.h
@@ -243,10 +224,6 @@ for my $file (qw(
         File::Spec->catfile($bits_root, $file),
     );
 }
-
-# ------------------------------------------------------------
-# 5. Generate zxlibstdc++.cmake
-# ------------------------------------------------------------
 
 my $cmake_path = File::Spec->catfile(
     $base,
