@@ -148,8 +148,6 @@ my $std_generator = File::Spec->catdir(
 if (-f $std_generator) {
     unlink($std_generator)
         or die "error: failed to remove file '$std_generator': $!\n";
-} else {
-    die "error: $std_generator is not a file\n"
 }
 
 my $include_root = File::Spec->catdir(
@@ -182,17 +180,6 @@ my $stdcxx_h = File::Spec->catfile(
 
 require_file($stdcxx_h);
 patch_stdcxx($stdcxx_h);
-
-# ------------------------------------------------------------
-# 3. Install generic target headers
-# ------------------------------------------------------------
-#
-# GCC normally keeps these under:
-#
-#   config/os/generic/
-#
-# rather than config/generic/.
-# ------------------------------------------------------------
 
 my $generic_root = File::Spec->catdir(
     $stldir,

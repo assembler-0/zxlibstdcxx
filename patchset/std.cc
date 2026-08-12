@@ -1,49 +1,16 @@
-// -*- C++ -*- [std.modules] module std
-
-// Copyright The GNU Toolchain Authors.
-//
-// This file is part of the GNU ISO C++ Library.  This library is free
-// software; you can redistribute it and/or modify it under the
-// terms of the GNU General Public License as published by the
-// Free Software Foundation; either version 3.
-
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-
-// Under Section 7 of GPL version 3, you are granted additional
-// permissions described in the GCC Runtime Library Exception, version
-// 3.1, as published by the Free Software Foundation.
-
-// You should have received a copy of the GNU General Public License and
-// a copy of the GCC Runtime Library Exception along with this program;
-// see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
-// <http://www.gnu.org/licenses/>.
+/// SPDX-License-Identifier: Apache-2.0
+/// @file std.cc
+/// @brief libstdc++ module weapper
 
 module;
 
 #include <bits/stdc++.h>
-
-// stdc++.h doesn't include <execution> because of TBB issues;
-// FIXME for now let's avoid the problem by suppressing TBB.
-#ifdef _PSTL_PAR_BACKEND_TBB
-#undef _PSTL_PAR_BACKEND_TBB
-#define _PSTL_PAR_BACKEND_SERIAL
-#endif
-// #include <execution>
-
-// Module std does include deprecated library interfaces.
-#undef __DEPRECATED
-// #include <strstream>
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreserved-module-identifier"
 #pragma GCC diagnostic ignored "-Wcxx-attribute-extension"
 
 export module std;
-
-// C library exports are appended from std-clib.cc.in.
 
 // 27.4 <algorithm>
 export namespace std
@@ -1167,8 +1134,6 @@ export namespace std
     using std::placeholders::_8;
     using std::placeholders::_9;
   }
-  using std::bad_function_call;
-  using std::function;
   using std::mem_fn;
   using std::swap;
   using std::operator==;
@@ -1198,15 +1163,6 @@ export namespace std
   using std::swap;
   using std::uses_allocator;
 }
-
-#if __cpp_lib_generator
-export namespace std
-{
-  using std::generator;
-}
-#endif
-
-// <hazard_pointer> FIXME
 
 // 17.10.2 <initializer_list>
 export namespace std
@@ -1486,16 +1442,7 @@ export namespace std
   using std::operator>=;
   using std::operator<=>;
   using std::operator<<;
-  using std::allocate_shared;
-  using std::bad_weak_ptr;
-  using std::const_pointer_cast;
-  using std::dynamic_pointer_cast;
-  using std::make_shared;
-  using std::reinterpret_pointer_cast;
-  using std::shared_ptr;
-  using std::static_pointer_cast;
   using std::swap;
-  using std::get_deleter;
   using std::atomic_compare_exchange_strong;
   using std::atomic_compare_exchange_strong_explicit;
   using std::atomic_compare_exchange_weak;
@@ -1507,10 +1454,7 @@ export namespace std
   using std::atomic_load_explicit;
   using std::atomic_store;
   using std::atomic_store_explicit;
-  using std::enable_shared_from_this;
   using std::hash;
-  using std::owner_less;
-  using std::weak_ptr;
 #if __cpp_lib_out_ptr
   using std::out_ptr;
   using std::inout_ptr;
@@ -1975,6 +1919,8 @@ export namespace std
   using std::source_location;
 }
 
+#if __cpp_contracts >= 202400L
+#if __has_include(<contracts>)
 // 17.6.5 Contracts
 export namespace std
 {
@@ -1983,6 +1929,8 @@ export namespace std
     using std::contracts::contract_violation;
   }
 }
+#endif
+#endif
 
 // <span>
 export namespace std
@@ -2490,7 +2438,6 @@ export namespace std
 export namespace std
 {
   using std::swap;
-  using std::valarray;
   // using std::operator*;
   // using std::operator/;
   // using std::operator%;
@@ -2564,44 +2511,8 @@ export namespace std
 // 19.4 <cerrno>
 // No exports
 
-// 28.3 <cfenv>
-export C_LIB_NAMESPACE
-{
-#ifdef _GLIBCXX_USE_C99_FENV
-  using std::feclearexcept;
-  using std::fegetenv;
-  using std::fegetexceptflag;
-  using std::fegetround;
-  using std::feholdexcept;
-  using std::fenv_t;
-  using std::feraiseexcept;
-  using std::fesetenv;
-  using std::fesetexceptflag;
-  using std::fesetround;
-  using std::fetestexcept;
-  using std::feupdateenv;
-  using std::fexcept_t;
-#endif
-}
-
 // 17.3.7 <cfloat> [cfloat.syn]
 // No exports, only provides macros
-
-// 31.13.2 <cinttypes>
-export C_LIB_NAMESPACE
-{
-#ifdef _GLIBCXX_USE_C99_INTTYPES
-  using std::imaxabs;
-  using std::imaxdiv;
-  using std::imaxdiv_t;
-  using std::strtoimax;
-  using std::strtoumax;
-#if defined(_GLIBCXX_USE_WCHAR_T) && _GLIBCXX_USE_C99_INTTYPES_WCHAR_T
-  using std::wcstoimax;
-  using std::wcstoumax;
-#endif
-#endif
-}
 
 // 17.3.6 <climits> [climits.syn]
 // No exports, only provides macros
@@ -2677,148 +2588,7 @@ export C_LIB_NAMESPACE
   using std::abort;
   using std::atexit;
   using std::exit;
-#ifdef _GLIBCXX_HAVE_MBSTATE_T
-  using std::mblen;
-  using std::mbstowcs;
-  using std::mbtowc;
-#endif
 #ifdef _GLIBCXX_HAVE_QUICK_EXIT
   using std::quick_exit;
 #endif
-#ifdef _GLIBCXX_USE_WCHAR_T
-  using std::wcstombs;
-  using std::wctomb;
-#endif
 }
-
-// 23.5.5 <cuchar>
-export C_LIB_NAMESPACE
-{
-#if _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_CXX20
-  using std::mbrtoc8;
-  using std::c8rtomb;
-#endif
-#if _GLIBCXX_USE_C11_UCHAR_CXX11
-  using std::mbrtoc16;
-  using std::c16rtomb;
-  using std::mbrtoc32;
-  using std::c32rtomb;
-#endif
-}
-
-#if _GLIBCXX_USE_WCHAR_T
-// 23.5.4 <cwchar>
-export C_LIB_NAMESPACE
-{
-  using std::btowc;
-  using std::fgetwc;
-  using std::fgetws;
-  using std::fputwc;
-  using std::fputws;
-  using std::fwide;
-  using std::fwprintf;
-  using std::fwscanf;
-  using std::getwc;
-  using std::getwchar;
-  using std::mbrlen;
-  using std::mbrtowc;
-  using std::mbsinit;
-  using std::mbsrtowcs;
-  using std::mbstate_t;
-  using std::putwc;
-  using std::putwchar;
-  using std::size_t;
-  using std::swprintf;
-  using std::swscanf;
-  using std::tm;
-  using std::ungetwc;
-  using std::vfwprintf;
-# if _GLIBCXX_HAVE_VFWSCANF
-  using std::vfwscanf;
-#endif
-#ifndef _GLIBCXX_HAVE_BROKEN_VSWPRINTF
-  using std::vswprintf;
-#endif
-# if _GLIBCXX_HAVE_VSWSCANF
-  using std::vswscanf;
-#endif
-  using std::vwprintf;
-# if _GLIBCXX_HAVE_VWSCANF
-  using std::vwscanf;
-#endif
-  using std::wcrtomb;
-  using std::wcscat;
-  using std::wcschr;
-  using std::wcscmp;
-  using std::wcscoll;
-  using std::wcscpy;
-  using std::wcscspn;
-  using std::wcsftime;
-  using std::wcslen;
-  using std::wcsncat;
-  using std::wcsncmp;
-  using std::wcsncpy;
-  using std::wcspbrk;
-  using std::wcsrchr;
-  using std::wcsrtombs;
-  using std::wcsspn;
-  using std::wcsstr;
-  using std::wcstod;
-#if _GLIBCXX_HAVE_WCSTOF
-  using std::wcstof;
-#endif
-  using std::wcstok;
-  using std::wcstol;
-#if _GLIBCXX_USE_C99_WCHAR
-  using std::wcstold;
-  using std::wcstoll;
-#endif
-  using std::wcstoul;
-#if _GLIBCXX_USE_C99_WCHAR
-  using std::wcstoull;
-#endif
-  using std::wcsxfrm;
-  using std::wctob;
-  using std::wint_t;
-  using std::wmemchr;
-  using std::wmemcmp;
-  using std::wmemcpy;
-  using std::wmemmove;
-  using std::wmemset;
-  using std::wprintf;
-  using std::wscanf;
-}
-#endif
-
-#if _GLIBCXX_USE_WCHAR_T
-// 23.5.2 <cwctype>
-export C_LIB_NAMESPACE
-{
-  using std::iswalnum;
-  using std::iswalpha;
-#if _GLIBCXX_HAVE_ISWBLANK
-  using std::iswblank;
-#endif
-  using std::iswcntrl;
-  using std::iswctype;
-  using std::iswdigit;
-  using std::iswgraph;
-  using std::iswlower;
-  using std::iswprint;
-  using std::iswpunct;
-  using std::iswspace;
-  using std::iswupper;
-  using std::iswxdigit;
-  using std::towctrans;
-  using std::towlower;
-  using std::towupper;
-  using std::wctrans;
-  using std::wctrans_t;
-  using std::wctype;
-  using std::wctype_t;
-  using std::wint_t;
-}
-
-#pragma GCC diagnostic pop
-
-#endif
