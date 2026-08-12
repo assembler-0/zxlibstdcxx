@@ -1,0 +1,1 @@
+--disable-hosted-libstdcxx --target=s390x-ibm-linux --prefix=<THIS DIR> --with-gnu-ld --host=s390x-ibm-linux-gnu --disable-wchar_t --disable-werror

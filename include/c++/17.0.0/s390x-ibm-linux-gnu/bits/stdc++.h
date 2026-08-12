@@ -1,0 +1,455 @@
+// C++ includes used for precompiling -*- C++ -*-
+
+// Copyright (C) 2003-2025 Free Software Foundation, Inc.
+//
+// This file is part of the GNU ISO C++ Library.  This library is free
+// software; you can redistribute it and/or modify it under the
+// terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 3, or (at your option)
+// any later version.
+
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// Under Section 7 of GPL version 3, you are granted additional
+// permissions described in the GCC Runtime Library Exception, version
+// 3.1, as published by the Free Software Foundation.
+
+// You should have received a copy of the GNU General Public License and
+// a copy of the GCC Runtime Library Exception along with this program;
+// see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+// <http://www.gnu.org/licenses/>.
+
+/** @file stdc++.h
+ *  This is an implementation file for a precompiled header.
+ */
+
+// 17.4.1.2 Headers
+
+// C
+// Don't include cassert, it's not suitable for PCH or header unit.
+#if __has_include(<cctype>)
+#  include <cctype>
+#endif
+#if __has_include(<cfloat>)
+#  include <cfloat>
+#endif
+#if __has_include(<climits>)
+#  include <climits>
+#endif
+// #include <csetjmp>
+#if __has_include(<cstdarg>)
+#  include <cstdarg>
+#endif
+#if __has_include(<cstddef>)
+#  include <cstddef>
+#endif
+#if __has_include(<cstdlib>)
+#  include <cstdlib>
+#endif
+
+#if __cplusplus >= 201103L
+#if __has_include(<cstdint>)
+#  include <cstdint>
+#endif
+#if __cplusplus < 201703L
+#if __has_include(<ciso646>)
+#  include <ciso646>
+#endif
+#endif
+#endif
+
+// C++
+// #include <bitset>
+// #include <complex>
+#if __has_include(<algorithm>)
+#  include <algorithm>
+#endif
+#if __has_include(<bitset>)
+#  include <bitset>
+#endif
+#if __has_include(<functional>)
+#  include <functional>
+#endif
+#if __has_include(<iterator>)
+#  include <iterator>
+#endif
+#if __has_include(<limits>)
+#  include <limits>
+#endif
+#if __has_include(<memory>)
+#  include <memory>
+#endif
+#if __has_include(<new>)
+#  include <new>
+#endif
+#if __has_include(<numeric>)
+#  include <numeric>
+#endif
+#if __has_include(<typeinfo>)
+#  include <typeinfo>
+#endif
+#if __has_include(<utility>)
+#  include <utility>
+#endif
+
+#if __cpp_contracts >= 202400L
+#if __has_include(<contracts>)
+#include <contracts>
+#endif
+#endif
+
+#if __cplusplus >= 201103L
+#if __has_include(<array>)
+#  include <array>
+#endif
+#if __has_include(<atomic>)
+#  include <atomic>
+#endif
+#if __has_include(<initializer_list>)
+#  include <initializer_list>
+#endif
+#if __has_include(<ratio>)
+#  include <ratio>
+#endif
+#if __has_include(<scoped_allocator>)
+#  include <scoped_allocator>
+#endif
+#if __has_include(<tuple>)
+#  include <tuple>
+#endif
+#if __has_include(<typeindex>)
+#  include <typeindex>
+#endif
+#if __has_include(<type_traits>)
+#  include <type_traits>
+#endif
+#endif
+
+#if __cplusplus >= 201402L
+#endif
+
+#if __cplusplus >= 201703L
+// #include <any>
+// #include <execution>
+#if __has_include(<optional>)
+#  include <optional>
+#endif
+#if __has_include(<variant>)
+#  include <variant>
+#endif
+#if __has_include(<string_view>)
+#  include <string_view>
+#endif
+#endif
+
+#if __cplusplus >= 202002L
+#if __has_include(<bit>)
+#  include <bit>
+#endif
+#if __has_include(<compare>)
+#  include <compare>
+#endif
+#if __has_include(<concepts>)
+#  include <concepts>
+#endif
+#if __has_include(<numbers>)
+#  include <numbers>
+#endif
+#if __has_include(<ranges>)
+#  include <ranges>
+#endif
+#if __has_include(<span>)
+#  include <span>
+#endif
+#if __has_include(<source_location>)
+#  include <source_location>
+#endif
+#if __has_include(<version>)
+#  include <version>
+#endif
+#if __cpp_impl_coroutine
+#if __has_include(<coroutine>)
+#  include <coroutine>
+#endif
+#endif
+#endif
+
+// #if __cplusplus > 202002L
+// #include <expected>
+// #include <stdbool.h>
+// #include <stdatomic.h>
+// #endif
+
+// #if _GLIBCXX_HOSTED
+// C
+#if __has_include(<cctype>)
+#  include <cctype>
+#endif
+#if __has_include(<cerrno>)
+#  include <cerrno>
+#endif
+#if __has_include(<cfloat>)
+#  include <cfloat>
+#endif
+#if __has_include(<climits>)
+#  include <climits>
+#endif
+// #include <clocale>
+#if __has_include(<cmath>)
+#  include <cmath>
+#endif
+// #include <csetjmp>
+// #include <csignal>
+#if __has_include(<cstdarg>)
+#  include <cstdarg>
+#endif
+#if __has_include(<cstddef>)
+#  include <cstddef>
+#endif
+#if __has_include(<cstdio>)
+#  include <cstdio>
+#endif
+#if __has_include(<cstdlib>)
+#  include <cstdlib>
+#endif
+#if __has_include(<cstring>)
+#  include <cstring>
+#endif
+// #include <ctime>
+#if __has_include(<cwchar>)
+#  include <cwchar>
+#endif
+// #include <cwctype>
+
+#if __cplusplus >= 201103L
+// #include <cfenv>
+// #include <cinttypes>
+#if __has_include(<cstdint>)
+#  include <cstdint>
+#endif
+// #include <cuchar>
+#if __cplusplus < 201703L
+#if __has_include(<ccomplex>)
+#  include <ccomplex>
+#endif
+#if __has_include(<cstdalign>)
+#  include <cstdalign>
+#endif
+#if __has_include(<cstdbool>)
+#  include <cstdbool>
+#endif
+#if __has_include(<ctgmath>)
+#  include <ctgmath>
+#endif
+#endif
+#endif
+
+// C++
+// #include <complex>
+#if __has_include(<deque>)
+#  include <deque>
+#endif
+#if __has_include(<exception>)
+#  include <exception>
+#endif
+// #include <fstream>
+#if __has_include(<functional>)
+#  include <functional>
+#endif
+// #include <iomanip>
+// #include <ios>
+// #include <iosfwd>
+// #include <iostream>
+// #include <istream>
+#if __has_include(<iterator>)
+#  include <iterator>
+#endif
+#if __has_include(<limits>)
+#  include <limits>
+#endif
+#if __has_include(<list>)
+#  include <list>
+#endif
+// #include <locale>
+// #include <map>
+#if __has_include(<memory>)
+#  include <memory>
+#endif
+#if __has_include(<new>)
+#  include <new>
+#endif
+#if __has_include(<numeric>)
+#  include <numeric>
+#endif
+// #include <ostream>
+// #include <queue>
+// #include <set>
+// #include <sstream>
+// #include <stack>
+#if __has_include(<stdexcept>)
+#  include <stdexcept>
+#endif
+// #include <streambuf>
+#if __has_include(<string>)
+#  include <string>
+#endif
+#if __has_include(<typeinfo>)
+#  include <typeinfo>
+#endif
+#if __has_include(<utility>)
+#  include <utility>
+#endif
+// #include <valarray>
+#if __has_include(<vector>)
+#  include <vector>
+#endif
+
+#if __cplusplus >= 201103L
+#if __has_include(<array>)
+#  include <array>
+#endif
+#if __has_include(<atomic>)
+#  include <atomic>
+#endif
+// #include <chrono>
+// #include <codecvt>
+// #include <condition_variable>
+// #include <forward_list>
+// #include <future>
+#if __has_include(<initializer_list>)
+#  include <initializer_list>
+#endif
+#if __has_include(<mutex>)
+#  include <mutex>
+#endif
+#if __has_include(<random>)
+#  include <random>
+#endif
+#if __has_include(<ratio>)
+#  include <ratio>
+#endif
+// #include <regex>
+#if __has_include(<scoped_allocator>)
+#  include <scoped_allocator>
+#endif
+#if __has_include(<system_error>)
+#  include <system_error>
+#endif
+// #include <thread>
+#if __has_include(<tuple>)
+#  include <tuple>
+#endif
+#if __has_include(<typeindex>)
+#  include <typeindex>
+#endif
+#if __has_include(<type_traits>)
+#  include <type_traits>
+#endif
+// #include <unordered_map>
+// #include <unordered_set>
+#endif
+
+#if __cplusplus >= 201402L
+// #include <shared_mutex>
+#endif
+
+#if __cplusplus >= 201703L
+// #include <any>
+// #include <charconv>
+// #include <execution>
+// #include <filesystem>
+#if __has_include(<optional>)
+#  include <optional>
+#endif
+// #include <memory_resource>
+#if __has_include(<variant>)
+#  include <variant>
+#endif
+#endif
+
+#if __cplusplus >= 202002L
+// #include <barrier>
+#if __has_include(<bit>)
+#  include <bit>
+#endif
+#if __has_include(<compare>)
+#  include <compare>
+#endif
+#if __has_include(<concepts>)
+#  include <concepts>
+#endif
+// #include <format>
+// #include <latch>
+#if __has_include(<numbers>)
+#  include <numbers>
+#endif
+#if __has_include(<ranges>)
+#  include <ranges>
+#endif
+#if __has_include(<span>)
+#  include <span>
+#endif
+// #include <stop_token>
+// #include <semaphore>
+#if __has_include(<source_location>)
+#  include <source_location>
+#endif
+// #include <syncstream>
+// #include <version>
+#endif
+
+#if __cplusplus > 202002L
+#if __has_include(<expected>)
+#  include <expected>
+#endif
+#if __has_include(<flat_map>)
+#  include <flat_map>
+#endif
+#if __has_include(<flat_set>)
+#  include <flat_set>
+#endif
+#if __has_include(<generator>)
+#  include <generator>
+#endif
+#if __has_include(<mdspan>)
+#  include <mdspan>
+#endif
+#if __has_include(<print>)
+#  include <print>
+#endif
+#if __has_include(<spanstream>)
+#  include <spanstream>
+#endif
+#if __has_include(<stacktrace>)
+#  include <stacktrace>
+#endif
+// #if __has_include(<stdatomic.h>)
+// #  include <stdatomic.h>
+// #endif
+#if __has_include(<stdfloat>)
+#  include <stdfloat>
+#endif
+#endif
+
+#if __cplusplus > 202302L
+#if __has_include(<debugging>)
+#  include <debugging>
+#endif
+#if __has_include(<inplace_vector>)
+#  include <inplace_vector>
+#endif
+#if __has_include(<text_encoding>)
+#  include <text_encoding>
+#endif
+// #if __has_include(<stdbit.h>)
+// #  include <stdbit.h>
+// #endif
+#if __has_include(<stdckdint.h>)
+#  include <stdckdint.h>
+#endif
+#endif
+
+// #endif // HOSTED
