@@ -1,1 +1,1 @@
---disable-hosted-libstdcxx --target=s390x-ibm-linux --prefix=<THIS DIR> --with-gnu-ld --host=s390x-ibm-linux-gnu --disable-wchar_t --disable-werror
+ CC=s390x-suse-linux-gcc CXX=s390x-suse-linux-g++ ../configure --disable-hosted-libstdcxx --target=s390x-ibm-linux --prefix=/home/assembler-0/workspace/ZXFoundation/deps/zxlibstdc++ --with-gnu-ld --host=s390x-ibm-linux-gnu --disable-wchar_t --disable-werror --enable-libstdcxx-pch --disable-libstdcxx-threads

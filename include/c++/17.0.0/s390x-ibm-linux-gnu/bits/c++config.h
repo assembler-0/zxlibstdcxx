@@ -46,7 +46,7 @@
 
 // The datestamp of the C++ library in compressed ISO date format.
 #undef __GLIBCXX__ /* The testsuite defines it to 99999999 to block PCH.  */
-#define __GLIBCXX__ 20260811
+#define __GLIBCXX__ 20260815
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -1927,7 +1927,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_ZONEINFO_DIR "/usr/share/zoneinfo"
 
 /* Define to 1 if mutex_timedlock is available. */
-#define _GTHREAD_USE_MUTEX_TIMEDLOCK 1
+/* #undef _GTHREAD_USE_MUTEX_TIMEDLOCK */
 
 /* Define for large files, on AIX-style hosts. */
 /* #undef _GLIBCXX_LARGE_FILES */
