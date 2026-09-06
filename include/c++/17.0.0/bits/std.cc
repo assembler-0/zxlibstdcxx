@@ -10,7 +10,7 @@ module;
 #pragma GCC diagnostic ignored "-Wreserved-module-identifier"
 #pragma GCC diagnostic ignored "-Wcxx-attribute-extension"
 
-export module std;
+export module lib.stl;
 
 // 27.4 <algorithm>
 export namespace std
