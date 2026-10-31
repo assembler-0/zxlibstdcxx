@@ -168,7 +168,7 @@ my $bits_root = File::Spec->catdir(
 );
 
 install_file(
-    File::Spec->catfile($base, 'patchset', 'std.cc'),
+    File::Spec->catfile($base, 'patchset', 'std.cc.noindex'),
     File::Spec->catfile($bits_root, 'std.cc'),
 );
 
